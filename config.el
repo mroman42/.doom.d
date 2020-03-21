@@ -154,5 +154,53 @@
 (setq org-hide-emphasis-markers t)
 
 
-;; Org-mode agenda
+;; These options set where it will store the pdf and the location of
+;; the notes.  They are the same ones that the Interleave package used,
+;; keeping compatibility with it.
+(setq org-noter-property-doc-file "INTERLEAVE_PDF")
+(setq org-noter-property-note-location "INTERLEAVE_PAGE_NOTE")
+
+;; Org-id automatically provides an ID for each header when necessary:
+;; for example, when creating a link.
+(require! 'org-id)
+
+;; We only want it to work if no custom id has been already created.
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+
+;; Deft.
+;; The first element of ~deft-extensions~ is the default extension for new files.
+(use-package! deft
+  :bind ("s-p" . deft)
+  :commands (deft)
+  :config
+    (setq deft-directory "~/org/math")
+    (setq deft-extensions '("org" "md" "txt"))
+    (setq deft-recursive t))
+
+
+; We ask the operative system to change Caps to Ctrl. This is a possible
+; solution to the Emacs pinky (http://ergoemacs.org/emacs/emacs_pinky.html).
+; It becomes a systemwide option, but I prefer this to be systemwide anyway.
+(shell-command "setxkbmap -option ctrl:nocaps")
+
+;; Edit with multiple cursors at the same time.
+(use-package! multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+    	  ("C->" . mc/mark-next-like-this)))
+
+;; It is possible to change windows in Emacs using 'C-x o', but
+;; sometimes 'C-tab' still feels more intuitive to me.
+(global-set-key [C-tab] 'other-window)
+(global-set-key [C-iso-lefttab] (lambda () (interactive) (other-window -1)))
+
+(use-package windmove
+    :config
+      (windmove-default-keybindings 'super)
+      (setq windmove-wrap-around t))
+
+
+;; Configuration packages.
 (load! "+agenda")
+(load! "+refile")
+(load! "+latex")

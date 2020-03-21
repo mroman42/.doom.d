@@ -51,4 +51,10 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! org-ref)
+(package! org-noter)
 (package! ivy-bibtex)
+(package! auctex)
+(package! cdlatex)   ;; cd-latex provides sensible keybindings for writing math.
+(package! deft)
+(package! multiple-cursors)
+(package! windmove)
