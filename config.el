@@ -162,7 +162,7 @@
 
 ;; Org-id automatically provides an ID for each header when necessary:
 ;; for example, when creating a link.
-(require! 'org-id)
+(use-package! org-id)
 
 ;; We only want it to work if no custom id has been already created.
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
@@ -194,11 +194,10 @@
 (global-set-key [C-tab] 'other-window)
 (global-set-key [C-iso-lefttab] (lambda () (interactive) (other-window -1)))
 
-(use-package windmove
+(use-package! windmove
     :config
       (windmove-default-keybindings 'super)
       (setq windmove-wrap-around t))
-
 
 ;; Configuration packages.
 (load! "+agenda")

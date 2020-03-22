@@ -1,17 +1,15 @@
 ;;; ~/.doom.d/+agenda.el -*- lexical-binding: t; -*-
 
-  ;; Agenda commands.  Builds the personal agenda.
-  (setq org-agenda-custom-commands
-     '(("c" "Complete agenda, todo and waiting tasks" (
+;; Agenda commands.  Builds the personal agenda.
+(setq org-agenda-custom-commands
+      '(("c" "Complete agenda, todo and waiting tasks"
+         (
+          ;; High priority tasks
+          (tags-todo "-habit-notask+TODO=\"TODO\"-WAITUNTIL>\"<today>\"+PRIORITY=\"A\""
+                     ((org-agenda-overriding-header "Priority")))
 
-            ;; High priority tasks
-            (tags-todo "-habit-notask+TODO=\"TODO\"-WAITUNTIL>\"<today>\"+PRIORITY=\"A\"" (
-               (org-agenda-overriding-header "Priority")
-               ;(org-agenda-files '("~/org/agenda/Tasks.org"))
-               ))
-
-            ;; Agenda and calendar
-            (agenda "" (
+          ;; Agenda and calendar
+          (agenda "" (
                (org-agenda-overriding-header "Agenda")
                (org-agenda-skip-function '(org-agenda-skip-entry-if 'regexp ":habit:"))
                ;(org-agenda-files '("~/org/agenda/Tasks.org" "~/org/GCalendar.org"))
@@ -59,10 +57,7 @@
   (setq org-agenda-dim-blocked-tasks 'invisible)
 
   ;; Extensible dependencies for the org-mode agenda.
-  (use-package org-edna
-    :ensure t
-    :config
-      (org-edna-load))
+  (use-package! org-edna :config (org-edna-load))
 
   ;; Show only today's habits.
   (setq org-habit-show-habits-only-for-today t)

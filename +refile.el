@@ -30,5 +30,5 @@
 (advice-add 'org-archive-subtree :after (lambda (&rest _) (org-save-all-org-buffers)))
 
 ;; Stores org files in ~/org. Defines location of index, agenda and todo files.
-(setq org-directory m42/org-folder)
-(setq org-archive-location (concat m42/archive-file "::* From %s"))
+(setq org-directory "~/org")
+(setq org-archive-location (concat "~/org/Archive" "::* From %s"))
