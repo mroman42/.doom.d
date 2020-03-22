@@ -59,3 +59,5 @@
 (package! deft)
 (package! multiple-cursors)
 (package! windmove)
+(package! dashboard)
+(package! org-mru-clock)

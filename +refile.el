@@ -2,18 +2,18 @@
 
 ;; https://www.reddit.com/r/emacs/comments/4366f9/how_do_orgrefiletargets_work/czg008y/
 
-(setq org-math-wiki-files (directory-files "~/org/math/wiki/" 'full "org"))
+(setq org-deft-files (directory-files "~/org/deft" 'full "org"))
 
 (setq org-refile-targets '(
    (nil :maxlevel . 2)
    (org-agenda-files :maxlevel . 2)
-   (org-math-wiki-files :maxlevel . 1)
+   (org-deft-files :maxlevel . 1)
    ("~/org/Someday.org" :maxlevel . 2)
    ("~/org/agenda/Tasks.org" :maxlevel . 2)
    ("~/org/Reference.org" :maxlevel . 2)
    ("~/org/Notes.org" :maxlevel . 2)
-   ("~/org/agenda/Inbox.org" :maxlevel . 1)
-   ("~/org/Archive.org" :maxlevel . 1)
+   ("~/org/agenda/inbox.org" :maxlevel . 1)
+   ("~/org/agenda/archive.org" :maxlevel . 1)
    ("~/org/math" :maxlevel . 1)))
 
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go

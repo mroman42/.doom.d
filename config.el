@@ -91,10 +91,10 @@
 ;; Org-ref manages bibliography.
 (use-package! org-ref
   :config
-    (setq org-ref-notes-directory "~/org/")
-    (setq org-ref-bibliography-notes "~/org/Math.org")
-    (setq org-ref-default-bibliography '("~/org/Math.bib"))
-    (setq org-ref-pdf-directory "~/pdf/"))
+    (setq org-ref-notes-directory "~/org/"
+          org-ref-bibliography-notes "~/org/Math.org"
+          org-ref-default-bibliography '("~/bibliography/latex.bib")
+          org-ref-pdf-directory "~/pdf/"))
 
 
 ;; Select citations
@@ -110,32 +110,32 @@
     (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 
 ;; Org mode speed keys
-  ;; Quickly jumps between headers.
-  ;; https://emacs.stackexchange.com/a/32625/12208
-  (setq org-goto-interface 'outline-path-completion)
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-goto-max-level 2)
+;; Quickly jumps between headers.
+;; https://emacs.stackexchange.com/a/32625/12208
+(setq org-goto-interface 'outline-path-completion)
+(setq org-outline-path-complete-in-steps nil)
+(setq org-goto-max-level 2)
 
-  ;; Speed commands work on headers. Pressing =n= there, for instance,
-  ;; jumps to the next header.
-  (setq org-use-speed-commands t)
+;; Speed commands work on headers. Pressing =n= there, for instance,
+;; jumps to the next header.
+(setq org-use-speed-commands t)
 
-  ;; These are basic keybindings for the agenda and org-capture.
-  (setq org-export-coding-system 'utf-8)
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key "\C-cb" 'org-iswitchb)
+;; These are basic keybindings for the agenda and org-capture.
+(setq org-export-coding-system 'utf-8)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
 
-  ;; Navigation between headings made easier.
-  (add-hook 'org-mode-hook
-     (lambda ()
+;; Navigation between headings made easier.
+(add-hook 'org-mode-hook
+  (lambda ()
        (local-set-key "\M-n" 'outline-next-visible-heading)
        (local-set-key "\M-p" 'outline-previous-visible-heading)))
 
-  ;; When set to t, asks for confirmation each time it executes an elisp
-  ;; block.
-  (setq org-confirm-elisp-confirm-function nil)
+;; When set to t, asks for confirmation each time it executes an elisp
+;; block.
+(setq org-confirm-elisp-confirm-function nil)
 
 ;; Pretty entities automatically draws '\alpha' as α when set as t.
 (setq org-pretty-entities nil)
@@ -171,12 +171,21 @@
 ;; Deft.
 ;; The first element of ~deft-extensions~ is the default extension for new files.
 (use-package! deft
-  :bind ("s-p" . deft)
+  :bind ("C-c C-d" . deft)
   :commands (deft)
   :config
-    (setq deft-directory "~/org/math")
+    (setq deft-directory "~/org/deft")
     (setq deft-extensions '("org" "md" "txt"))
-    (setq deft-recursive t))
+    (setq deft-recursive nil)
+    (setq deft-current-sort-method 'title)
+    ; Decouples the display from the actual filename.
+    (setq deft-use-filter-string-for-filename t)
+    ; Deft will replace all slashes and spaces with hyphens and will convert the
+    ; file name to lowercase.
+    (setq deft-file-naming-rules
+      '((noslash . "-")
+        (nospace . "-")
+        (case-fn . downcase))))
 
 
 ; We ask the operative system to change Caps to Ctrl. This is a possible
@@ -187,7 +196,7 @@
 ;; Edit with multiple cursors at the same time.
 (use-package! multiple-cursors
   :bind (("C-S-c C-S-c" . mc/edit-lines)
-    	  ("C->" . mc/mark-next-like-this)))
+        ("C->" . mc/mark-next-like-this)))
 
 ;; It is possible to change windows in Emacs using 'C-x o', but
 ;; sometimes 'C-tab' still feels more intuitive to me.
@@ -199,7 +208,10 @@
       (windmove-default-keybindings 'super)
       (setq windmove-wrap-around t))
 
+
 ;; Configuration packages.
 (load! "+agenda")
 (load! "+refile")
 (load! "+latex")
+(load! "+capture")
+

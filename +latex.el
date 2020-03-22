@@ -1,15 +1,16 @@
 ;;; ~/.doom.d/+latex.el -*- lexical-binding: t; -*-
 
-  ;; Keybinding for previewing formulas in latex.
-  (global-set-key (kbd "C-ñ") 'org-toggle-latex-fragment)
+;; Keybinding for previewing formulas in latex.
+(global-set-key (kbd "C-ñ") 'org-toggle-latex-fragment)
 
-  ;; Zooming.
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+;; Zooming.
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 
-  ;; Abbreviations on 'latex-math-mode'. They require Latex to use
-  ;; =latex-math-mode=. It is activated by default.
-  (customize-set-variable 'LaTeX-math-abbrev-prefix "ç")
-  (setq LaTeX-math-list
+;; Abbreviations on 'latex-math-mode'. They require Latex to use
+;; =latex-math-mode=. It is activated by default.
+(customize-set-variable 'LaTeX-math-abbrev-prefix "ç")
+
+(setq LaTeX-math-list
     (quote
       ((";" "mathbb{" "" nil)
        ("=" "cong" "" nil)
@@ -25,16 +26,16 @@
        ("C-)" "right)" "" nil)
        )))
 
-  ;; Auctex configuration
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'org-mode-hook 'LaTeX-math-mode)
-  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+;; Auctex configuration
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'org-mode-hook 'LaTeX-math-mode)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
-  ;; Some packages must be added at the latex preview alist.  In
-  ;; particular, this adds preview of commutative diagrams with the
-  ;; 'tikz-cd' package.
-  (eval-after-load "preview"
-    '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+;; Some packages must be added at the latex preview alist.  In
+;; particular, this adds preview of commutative diagrams with the
+;; 'tikz-cd' package.
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
 ;; Sets the backend for latex. Imagemagick works best with tikzcd.
 (setq org-preview-latex-default-process 'imagemagick)
