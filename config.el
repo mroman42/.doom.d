@@ -25,16 +25,18 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq! doom-theme 'doom-nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq! org-directory "~/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq! display-line-numbers-type t)
 
+;; Autorrevert files.  Buffers should be synced with disk.
+(setq! global-auto-revert-mode 1)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -209,6 +211,9 @@
       (setq windmove-wrap-around t))
 
 (after! magit (magit-todos-mode))
+
+;; Agda input is really useful for maths.
+(use-package! agda-input)
 
 ;; Configuration packages.
 (load! "+agenda")

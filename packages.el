@@ -54,8 +54,6 @@
 (package! org-noter)
 (package! org-edna)
 (package! ivy-bibtex)
-(package! auctex)
-(package! cdlatex)   ;; cd-latex provides sensible keybindings for writing math.
 (package! deft)
 (package! multiple-cursors)
 (package! windmove)

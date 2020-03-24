@@ -9,7 +9,6 @@
 ;; Abbreviations on 'latex-math-mode'. They require Latex to use
 ;; =latex-math-mode=. It is activated by default.
 (setq! LaTeX-math-abbrev-prefix "ç")
-
 (setq! LaTeX-math-list
     (quote
       ((";" "mathbb{" "" nil)
@@ -39,7 +38,38 @@
 ;; Auctex configuration
 ;(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 ;(add-hook 'org-mode-hook 'LaTeX-math-mode)
-(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+(add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
+
+;; cdlatex helps writing faster
+(setq! cdlatex-math-symbol-prefix ?ç)
+(setq! cdlatex-math-symbol-alist '(
+        (?% ("\\widehat{?}" "\\hat{?}"))
+        (?' ("^{\\prime}" "\\prime"))
+        (?* ("\\times" "\\otimes" "\\star"))
+        (?+ ("+" "\\oplus"))
+        (?- ("\\vdash" "\\setminus" "\\triangle"))
+        (?. ("\\sq" "\\circ" "\\cdot"))
+        (?0 ("\\emptyset" "\\circ"))
+        (?\; ("\\col"))
+        (?< ("\\leftarrow" "\\leftharpoonup" "\\xleftarrow"))
+        (?> ("\\rightarrow" "\\rightharpoonup" "\\xrightarrow"))
+        (?B ("\\bullet"))
+        (?C ("\\widecheck{?}" "\\check{?}"))
+        (?F ("\\Phi" "\\Varphi"))
+        (?M ("\\begin{bsmallmatrix}?\\end{bsmallmatrix}"))
+        (?P ("\\Prod{?}" "\\Pi" "\\partial"))
+        (?S ("\\Sum{?}" "\\Sigma" "\\arcsin"))
+        (?\"("^{\\prime\\prime}" "\\prime\\prime"))
+        (?a ("\\alpha" "\\cap" "\\sqcap"))
+        (?c ("\\cat{?}" "\\catn{?}"))
+        (?e ("\\varepsilon" "\\epsilon" "\\exp{?}"))
+        (?i ("\\iota" "\\in"))
+        (?j ("{\\id^{h}}_{?}" "{\\id^{v}}_{?}"))
+        (?r ("\\rho" "\\varrho" "\\restrict{?}"))
+        (?u ("\\upsilon" "\\cup" "\\sqcup"))
+        (?{ ("\\subseteq" "\\subsetneq"))
+        (?} ("\\supseteq" "\\supsetneq"))
+        ))
 
 ;; Some packages must be added at the latex preview alist.  In
 ;; particular, this adds preview of commutative diagrams with the
@@ -55,13 +85,10 @@
 
 
 ;; Exporting to latex.
-(use-package! ox-latex)
-
-
 ;; Presentations
-(use-package! ox-beamer)
-
 ;; Exporting ignores headlines.
+(use-package! ox-latex)
+(use-package! ox-beamer)
 (use-package! ox-extra)
 (ox-extras-activate '(ignore-headlines))
 
