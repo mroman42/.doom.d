@@ -176,7 +176,7 @@
   :config
     (setq deft-directory "~/org/deft")
     (setq deft-extensions '("org" "md" "txt"))
-    (setq deft-recursive nil)
+    (setq deft-recursive t)
     (setq deft-current-sort-method 'title)
     ; Decouples the display from the actual filename.
     (setq deft-use-filter-string-for-filename t)
@@ -208,10 +208,11 @@
       (windmove-default-keybindings 'super)
       (setq windmove-wrap-around t))
 
+(after! magit (magit-todos-mode))
 
 ;; Configuration packages.
 (load! "+agenda")
 (load! "+refile")
 (load! "+latex")
 (load! "+capture")
-
+(load! "+clock")

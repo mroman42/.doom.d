@@ -1,16 +1,16 @@
 ;;; ~/.doom.d/+latex.el -*- lexical-binding: t; -*-
 
 ;; Keybinding for previewing formulas in latex.
-(global-set-key (kbd "C-ñ") 'org-toggle-latex-fragment)
+(global-set-key (kbd "C-ñ") 'org-latex-preview)
 
 ;; Zooming.
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+(setq! org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 
 ;; Abbreviations on 'latex-math-mode'. They require Latex to use
 ;; =latex-math-mode=. It is activated by default.
-(customize-set-variable 'LaTeX-math-abbrev-prefix "ç")
+(setq! LaTeX-math-abbrev-prefix "ç")
 
-(setq LaTeX-math-list
+(setq! LaTeX-math-list
     (quote
       ((";" "mathbb{" "" nil)
        ("=" "cong" "" nil)
@@ -26,9 +26,19 @@
        ("C-)" "right)" "" nil)
        )))
 
+;; PDF generation process.
+;; This is the script Emacs will run when generating a PDF file from
+;; an org mode file.
+(setq! org-latex-pdf-process
+  '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+    "bibtex %b"
+    "makeindex %b"
+    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
 ;; Auctex configuration
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'org-mode-hook 'LaTeX-math-mode)
+;(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;(add-hook 'org-mode-hook 'LaTeX-math-mode)
 (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 ;; Some packages must be added at the latex preview alist.  In
@@ -38,7 +48,101 @@
   '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
 ;; Sets the backend for latex. Imagemagick works best with tikzcd.
-(setq org-preview-latex-default-process 'imagemagick)
+(setq! org-preview-latex-default-process 'imagemagick)
 
 ;; No default packages should be loaded.
-(setq org-latex-default-packages-alist '())
+(setq! org-latex-default-packages-alist '())
+
+
+;; Exporting to latex.
+(use-package! ox-latex)
+
+
+;; Presentations
+(use-package! ox-beamer)
+
+;; Exporting ignores headlines.
+(use-package! ox-extra)
+(ox-extras-activate '(ignore-headlines))
+
+
+;; Classes for latex exporting
+;; Exports to beamer. It needs to first define the beamer class.
+(add-to-list 'org-latex-classes
+      '("beamer"
+	"\\documentclass\[presentation\]\{beamer\}"
+	("\\section\{%s\}" . "\\section*\{%s\}")
+	("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+	("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+(with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+      '("scrbook" "\\documentclass{scrbook}"
+       ("\\part{%s}" . "\\part*{%s}")
+       ("\\chapter{%s}" . "\\chapter*{%s}")
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+
+(with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+      '("jfp" "\\documentclass{jfp}"
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+      '("tac" "\\documentclass{tac}"
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+      '("amsart" "\\documentclass{amsart}"
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+       )))
+
+  (with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+      '("ociamthesis" "\\documentclass{ociamthesis}"
+       ("\\chapter{%s}" . "\\chapter*{%s}")
+       ("\\section{%s}" . "\\section*{%s}")
+       ("\\subsection{%s}" . "\\subsection*{%s}")
+       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+       )))
+
+  (with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+	       '("scrreprt" "\\documentclass{scrreprt}"
+		 ("\\part{%s}" . "\\part*{%s}")
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+
+  (with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+	       '("myifcolog" "\\documentclass{myifcolog}"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\subsubsubsection{%s}" . "\\subsubsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+
+;; Exports minted code in latex.
+(setq! org-latex-listings 'minted)

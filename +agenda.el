@@ -26,6 +26,11 @@
                (org-agenda-overriding-header "Non-priority")))
      ))))
 
+(map! :map org-agenda-mode-map
+      "i" #'org-agenda-clock-in
+      "r" #'org-agenda-refile
+      "R" #'org-agenda-refile
+      "c" #'org-capture)
 
 ;; Agenda filters.
 (setq org-agenda-tag-filter-preset '("-notask"))

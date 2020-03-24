@@ -61,3 +61,5 @@
 (package! windmove)
 (package! dashboard)
 (package! org-mru-clock)
+(package! magit-todos)
+(package! agda-input)
