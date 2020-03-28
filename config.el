@@ -6,7 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "Mario Román"
+(setq! user-full-name "Mario Román"
       user-mail-address "mromang08@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka42" :size 27)
+(setq! doom-font (font-spec :family "Iosevka42" :size 27)
       doom-variable-pitch-font (font-spec :family "Iosevka42" :size 27))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -95,7 +95,7 @@
   :config
     (setq org-ref-notes-directory "~/org/"
           org-ref-bibliography-notes "~/org/Math.org"
-          org-ref-default-bibliography '("~/bibliography/latex.bib")
+          org-ref-default-bibliography '("~/latex/bibliography.bib")
           org-ref-pdf-directory "~/pdf/"))
 
 
@@ -176,7 +176,7 @@
   :bind ("C-c C-d" . deft)
   :commands (deft)
   :config
-    (setq deft-directory "~/org/deft")
+    (setq deft-directory "~/deft")
     (setq deft-extensions '("org" "md" "txt"))
     (setq deft-recursive t)
     (setq deft-current-sort-method 'title)
@@ -221,3 +221,4 @@
 (load! "+latex")
 (load! "+capture")
 (load! "+clock")
+(load! "+mail")

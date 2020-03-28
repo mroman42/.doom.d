@@ -41,8 +41,9 @@
 (add-hook! 'org-mode-hook #'turn-on-org-cdlatex)
 
 ;; cdlatex helps writing faster
-(setq! cdlatex-math-symbol-prefix ?ç)
-(setq! cdlatex-math-symbol-alist '(
+(define-key key-translation-map (kbd "ç") (kbd "`"))
+(setq! cdlatex-math-symbol-prefix "ç")
+(setq! cdlatex-math-symbol-alist '((setq! cdlatex-math-symbol-prefix ?ç)
         (?% ("\\widehat{?}" "\\hat{?}"))
         (?' ("^{\\prime}" "\\prime"))
         (?* ("\\times" "\\otimes" "\\star"))
@@ -51,6 +52,7 @@
         (?. ("\\sq" "\\circ" "\\cdot"))
         (?0 ("\\emptyset" "\\circ"))
         (?\; ("\\col"))
+        (?\: ("\\colon"))
         (?< ("\\leftarrow" "\\leftharpoonup" "\\xleftarrow"))
         (?> ("\\rightarrow" "\\rightharpoonup" "\\xrightarrow"))
         (?B ("\\bullet"))
@@ -64,7 +66,8 @@
         (?c ("\\cat{?}" "\\catn{?}"))
         (?e ("\\varepsilon" "\\epsilon" "\\exp{?}"))
         (?i ("\\iota" "\\in"))
-        (?j ("{\\id^{h}}_{?}" "{\\id^{v}}_{?}"))
+        (?j ("\\theta"))
+        (?J ("\\Theta"))
         (?r ("\\rho" "\\varrho" "\\restrict{?}"))
         (?u ("\\upsilon" "\\cup" "\\sqcup"))
         (?{ ("\\subseteq" "\\subsetneq"))
