@@ -8,6 +8,7 @@
          mu4e-view-show-addresses t
          mu4e-view-show-images t
          mu4e-compose-format-flowed t
+         mu4e-headers-include-related nil
          ;mu4e-compose-in-new-frame t
          mu4e-change-filenames-when-moving t ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/
          mu4e-maildir-shortcuts

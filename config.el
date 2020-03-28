@@ -215,6 +215,9 @@
 ;; Agda input is really useful for maths.
 (use-package! agda-input)
 
+;; Elfeed files
+(setq! rmh-elfeed-org-files '("~/deft/feeds.org"))
+
 ;; Configuration packages.
 (load! "+agenda")
 (load! "+refile")
