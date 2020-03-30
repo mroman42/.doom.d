@@ -225,3 +225,4 @@
 (load! "+capture")
 (load! "+clock")
 (load! "+mail")
+(load! "+cards")

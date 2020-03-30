@@ -53,6 +53,7 @@
 (package! org-ref)
 (package! org-noter)
 (package! org-edna)
+(package! org-fc :recipe (:type git :host github :repo "l3kn/org-fc"))
 (package! ivy-bibtex)
 (package! deft)
 (package! multiple-cursors)
