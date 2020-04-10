@@ -155,6 +155,9 @@
 ;; Hides emphasis markers while writing when set to t.
 (setq org-hide-emphasis-markers t)
 
+;; Org-mode visual line mode
+(add-hook 'org-mode-hook #'visual-line-mode)
+(add-hook 'org-mode-hook '(lambda () (auto-fill-mode 0)))
 
 ;; These options set where it will store the pdf and the location of
 ;; the notes.  They are the same ones that the Interleave package used,
@@ -218,6 +221,10 @@
 ;; Elfeed files
 (setq! rmh-elfeed-org-files '("~/deft/feeds.org"))
 
+;; Search by asking
+(map! "C-¿" #'+ivy/project-search)
+(map! "C-x y" #'do-something)
+
 ;; Configuration packages.
 (load! "+agenda")
 (load! "+refile")
@@ -226,3 +233,4 @@
 (load! "+clock")
 (load! "+mail")
 (load! "+cards")
+(load! "+colors-nord")
