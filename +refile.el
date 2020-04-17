@@ -2,7 +2,7 @@
 
 ;; https://www.reddit.com/r/emacs/comments/4366f9/how_do_orgrefiletargets_work/czg008y/
 
-(setq org-deft-files (directory-files "~/org/deft" 'full "org"))
+(setq org-deft-files (directory-files "~/deft" 'full "org"))
 
 (setq org-refile-targets '(
    (nil :maxlevel . 2)

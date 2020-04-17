@@ -173,24 +173,6 @@
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
 
-;; Deft.
-;; The first element of ~deft-extensions~ is the default extension for new files.
-(use-package! deft
-  :bind ("C-c C-d" . deft)
-  :commands (deft)
-  :config
-    (setq deft-directory "~/deft")
-    (setq deft-extensions '("org" "md" "txt"))
-    (setq deft-recursive t)
-    (setq deft-current-sort-method 'title)
-    ; Decouples the display from the actual filename.
-    (setq deft-use-filter-string-for-filename t)
-    ; Deft will replace all slashes and spaces with hyphens and will convert the
-    ; file name to lowercase.
-    (setq deft-file-naming-rules
-      '((noslash . "-")
-        (nospace . "-")
-        (case-fn . downcase))))
 
 
 ; We ask the operative system to change Caps to Ctrl. This is a possible
@@ -225,8 +207,25 @@
 (map! "C-¿" #'+ivy/project-search)
 (map! "C-x y" #'do-something)
 
+;; Org-tangle-append
+;; https://emacs.stackexchange.com/questions/28098/how-to-change-org-mode-babel-tangle-write-to-file-way-as-append-instead-of-overr
+(defun org-babel-tangle-append ()
+  "Append source code block at point to its tangle file.
+The command works like `org-babel-tangle' with prefix arg
+but `delete-file' is ignored."
+  (interactive)
+  (cl-letf (((symbol-function 'delete-file) #'ignore))
+    (org-babel-tangle '(4))))
+
+(defun org-babel-tangle-append-setup ()
+  "Add key-binding C-c C-v C-t for `org-babel-tangle-append'."
+  (org-defkey org-mode-map (kbd "C-c C-v +") 'org-babel-tangle-append))
+
+(add-hook 'org-mode-hook #'org-babel-tangle-append-setup)
+
 ;; Configuration packages.
 (load! "+agenda")
+(load! "+deft")
 (load! "+refile")
 (load! "+latex")
 (load! "+capture")
